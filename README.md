@@ -2,8 +2,6 @@
 
 ## Installation of Airflow:
 ### Inside your laptop Ubuntu terminal perform below tasks.
-- `python3 -m venv sandbox`
-- `source sandbox/bin/activate`
 - `docker-compose -f docker-compose_local_executor.yaml up --build -d`
 - Docker compose to use - https://github.com/pranayb-konverge/airflow-tutorial/blob/main/airflow-local/docker-compose_local_executor.yaml
 
