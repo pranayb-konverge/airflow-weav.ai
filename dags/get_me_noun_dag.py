@@ -17,8 +17,8 @@ import spacy
 logger = logging.getLogger()
 
 # globle variables
-output_file_path = f"./dags/files/{Variable.get("output_file_path")}" # By default: "./dags/files/nouns.csv"
-input_file_path = f"./dags/files/{Variable.get("input_file_path")}" # By default: "./dags/files/example_text.txt"
+output_file_path = "./dags/files/" + Variable.get("output_file_path") # By default: "./dags/files/nouns.csv"
+input_file_path = "./dags/files/" + Variable.get("input_file_path")  # By default: "./dags/files/example_text.txt"
 
 
 """
