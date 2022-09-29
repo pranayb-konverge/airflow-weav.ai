@@ -4,8 +4,7 @@
 ### Inside your laptop Ubuntu terminal perform below tasks.
 - `python3 -m venv sandbox`
 - `source sandbox/bin/activate`
-- `pip --no-cache-dir install apache-airflow==2.1.0 -r requirements.txt`
-- `python3 -m spacy download en_core_web_sm`
+- `docker-compose -f docker-compose_local_executor.yaml up --build -d`
 - Docker compose to use - https://github.com/pranayb-konverge/airflow-tutorial/blob/main/airflow-local/docker-compose_local_executor.yaml
 
 # Use docker-compose for running Airflow in multiple containers - `airflow-local` folder.
