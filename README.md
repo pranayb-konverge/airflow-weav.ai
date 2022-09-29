@@ -4,9 +4,7 @@
 ### Inside your laptop Ubuntu terminal perform below tasks.
 - `python3 -m venv sandbox`
 - `source sandbox/bin/activate`
-- `pip3 install wheel`
-- `pip3 --no-cache-dir install apache-airflow==2.1.0 --constraint https://gist.githubusercontent.com/marclamberti/742efaef5b2d94f44666b0aec020be7c/raw/21c88601337250b6fd93f1adceb55282fb07b7ed/constraint.txt`
-- `pip3 install spacy`
+- `pip --no-cache-dir install apache-airflow==2.1.0 -r requirements.txt`
 - `python3 -m spacy download en_core_web_sm`
 - Docker compose to use - https://github.com/pranayb-konverge/airflow-tutorial/blob/main/airflow-local/docker-compose_local_executor.yaml
 
