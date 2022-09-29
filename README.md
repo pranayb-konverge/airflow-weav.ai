@@ -14,8 +14,8 @@
 - Place the file `get_me_noun_dag.py` in dags folder, if not present.
 - Place the input file in the dage/files folder, if not present.
 - Please create Variable in Airflow UI -> Admin -> Variables. Default values:
-    - Key: input_file_path | Val: `example_text.txt`
-    - Key: output_file_path | Val: `nouns.csv`
+    - Key: `input_file_path` | Val: `example_text.txt`
+    - Key: `output_file_path` | Val: `nouns.csv`
 - Create a file connection in Admin -> Connections on Airflow UI. Only this much is needed and save. This is used for FileSensor operator in DAG.
     - Connection Id : `fs_default`
     - Connection Type: `File (path)`
