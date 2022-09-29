@@ -60,10 +60,10 @@ x-airflow-common:
     AIRFLOW__API__AUTH_BACKENDS: 'airflow.api.auth.backend.basic_auth'
     _PIP_ADDITIONAL_REQUIREMENTS: ${_PIP_ADDITIONAL_REQUIREMENTS:-}
   volumes:
-    - ./dags:/opt/airflow/dags
+    - ./dags:/opt/airflow/dags:rw
     - ./logs:/opt/airflow/logs
     - ./plugins:/opt/airflow/plugins
-    - ./dags/files:/opt/airflow/dags/files:rw
+    - ./dags/files:/opt/airflow/dags/files
   user: "${AIRFLOW_UID:-50000}:0"
   depends_on:
     &airflow-common-depends-on
@@ -72,8 +72,9 @@ x-airflow-common:
     postgres:
       condition: service_healthy
   # command:
-    # - pip install spacy
-    # - python3 -m spacy download en_core_web_sm
+  #   - c
+  #   - pip install spacy
+  #   - python3 -m spacy download en_core_web_sm
 
 services:
   postgres:
@@ -89,17 +90,6 @@ services:
       interval: 5s
       retries: 5
     restart: always
-
-  # redis:
-  #   image: redis:latest
-  #   expose:
-  #     - 6379
-  #   healthcheck:
-  #     test: ["CMD", "redis-cli", "ping"]
-  #     interval: 5s
-  #     timeout: 30s
-  #     retries: 50
-  #   restart: always
 
   airflow-webserver:
     <<: *airflow-common
@@ -130,27 +120,6 @@ services:
       <<: *airflow-common-depends-on
       airflow-init:
         condition: service_completed_successfully
-
-  # airflow-worker:
-  #   <<: *airflow-common
-  #   command: celery worker
-  #   healthcheck:
-  #     test:
-  #       - "CMD-SHELL"
-  #       - 'celery --app airflow.executors.celery_executor.app inspect ping -d "celery@$${HOSTNAME}"'
-  #     interval: 10s
-  #     timeout: 10s
-  #     retries: 5
-  #   environment:
-  #     <<: *airflow-common-env
-  #     # Required to handle warm shutdown of the celery workers properly
-  #     # See https://airflow.apache.org/docs/docker-stack/entrypoint.html#signal-propagation
-  #     DUMB_INIT_SETSID: "0"
-  #   restart: always
-  #   depends_on:
-  #     <<: *airflow-common-depends-on
-  #     airflow-init:
-  #       condition: service_completed_successfully
 
   airflow-triggerer:
     <<: *airflow-common
@@ -256,27 +225,6 @@ services:
       - bash
       - -c
       - airflow
-
-  # You can enable flower by adding "--profile flower" option e.g. docker-compose --profile flower up
-  # or by explicitly targeted on the command line e.g. docker-compose up flower.
-  # See: https://docs.docker.com/compose/profiles/
-  # flower:
-  #   <<: *airflow-common
-  #   command: celery flower
-  #   profiles:
-  #     - flower
-  #   ports:
-  #     - 5555:5555
-  #   healthcheck:
-  #     test: ["CMD", "curl", "--fail", "http://localhost:5555/"]
-  #     interval: 10s
-  #     timeout: 10s
-  #     retries: 5
-  #   restart: always
-  #   depends_on:
-  #     <<: *airflow-common-depends-on
-  #     airflow-init:
-  #       condition: service_completed_successfully
 
 volumes:
   postgres-db-volume:
