@@ -60,10 +60,12 @@ x-airflow-common:
     AIRFLOW__API__AUTH_BACKENDS: 'airflow.api.auth.backend.basic_auth'
     _PIP_ADDITIONAL_REQUIREMENTS: ${_PIP_ADDITIONAL_REQUIREMENTS:-}
   volumes:
-    - ./dags:/opt/airflow/dags:rw
-    - ./logs:/opt/airflow/logs
-    - ./plugins:/opt/airflow/plugins
-    - ./dags/files:/opt/airflow/dags/files
+    - ./dags:/opt/airflow/dags:z
+    - ./logs:/opt/airflow/logs:z
+    - ./logs/get_me_noun_dag:/opt/airflow/logs/get_me_noun_dag:z
+    - ./plugins:/opt/airflow/plugins:z
+    - ./dags/files:/opt/airflow/dags/files:z
+    - ./airflow.cfg:/opt/airflow/airflow.cfg
   user: "${AIRFLOW_UID:-50000}:0"
   depends_on:
     &airflow-common-depends-on
