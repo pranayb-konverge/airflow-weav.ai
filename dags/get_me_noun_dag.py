@@ -3,6 +3,7 @@ import os
 from os.path import exists
 import logging
 from datetime import datetime, timedelta
+import csv
 
 # airflow imports
 from airflow import DAG
@@ -60,7 +61,7 @@ def noun_finder_etl():
         lines = input_file.readlines()
         # iterate over each line
         for line in lines:
-            logger.info(f"Line readed: {line}")
+            logger.info(f"Line number {line_number}, readed: {line}")
             # the nlp object will analyse the line and construct a spacy.tokens.doc.Doc class.
             # this doc is iterable.         
             doc = nlp(line)
@@ -71,17 +72,17 @@ def noun_finder_etl():
                     
             # We will construst the csv_line to be saved in output file with line number
             all_nouns_of_the_line_in_str = ",".join(nouns)
-            csv_line = f"{line_number}. {all_nouns_of_the_line_in_str}"    
+            csv_line = f"{line_number}. {all_nouns_of_the_line_in_str}"
             with open(output_file_path,'a') as output_file:
                 output_file.write(csv_line)
-                output_file.write("\n")
-            logger.info(f"Noun added to csv file: {csv_line}")
-            
+                output_file.write("\n")               
             nouns.clear()
             line_number += 1
-            logger.info(f"Next line to fetch: {line_number}")
+            logger.info(f"List of Noun found at line: {csv_line}")
+        return "Operation completed!"
     except Exception as e:
-        logger.error()
+        logger.error(str(e))
+        return str(e)
                 
 # end of read_file_and_save_to_csv method
 
