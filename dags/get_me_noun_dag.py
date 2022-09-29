@@ -32,8 +32,12 @@ def check_output_file():
         if not output_file_exists:
             file = open(output_file_path, "a")
             file.close()
+            return "Outupt CSV file created."
+        else:
+            return "Outupt CSV file is available."
     except Exception as e:
         logger.error(f"Exception while creating nouns.csv file. Error:{str(e)}")
+        return str(e)
 # end of check_output_file method
 
 
@@ -48,14 +52,15 @@ def noun_finder_etl():
     nouns = []
     try:
         # Documentation: 
-        # spacy. load() is a convenience wrapper that reads the pipeline's config.cfg, 
+        # spacy.load() is a convenience wrapper that reads the pipeline's config.cfg, 
         # uses the language and pipeline information to construct a Language object, 
         # loads in the model data and weights, and returns it.
         nlp = spacy.load("en_core_web_sm")
         input_file = open(input_file_path, "r")
         lines = input_file.readlines()
         # iterate over each line
-        for line in lines:   
+        for line in lines:
+            logger.info(f"Line readed: {line}")
             # the nlp object will analyse the line and construct a spacy.tokens.doc.Doc class.
             # this doc is iterable.         
             doc = nlp(line)
@@ -67,12 +72,14 @@ def noun_finder_etl():
             # We will construst the csv_line to be saved in output file with line number
             all_nouns_of_the_line_in_str = ",".join(nouns)
             csv_line = f"{line_number}. {all_nouns_of_the_line_in_str}"    
-            with open(output_file_path,'wb') as output_file:
+            with open(output_file_path,'a') as output_file:
                 output_file.write(csv_line)
                 output_file.write("\n")
+            logger.info(f"Noun added to csv file: {csv_line}")
             
             nouns.clear()
             line_number += 1
+            logger.info(f"Next line to fetch: {line_number}")
     except Exception as e:
         logger.error()
                 
