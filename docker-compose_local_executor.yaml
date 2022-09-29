@@ -65,7 +65,6 @@ x-airflow-common:
     - ./logs/get_me_noun_dag:/opt/airflow/logs/get_me_noun_dag:z
     - ./plugins:/opt/airflow/plugins:z
     - ./dags/files:/opt/airflow/dags/files:z
-    - ./airflow.cfg:/opt/airflow/airflow.cfg
   user: "${AIRFLOW_UID:-1000}:0"
   depends_on:
     &airflow-common-depends-on
