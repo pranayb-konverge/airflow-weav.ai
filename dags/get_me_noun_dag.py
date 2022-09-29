@@ -62,14 +62,13 @@ def noun_finder_etl():
         # iterate over each line
         for line in lines:
             logger.info(f"Line number {line_number}, readed: {line}")
-            # the nlp object will analyse the line and construct a spacy.tokens.doc.Doc class.
+            # the nlp object will analyse the line and construct a spacy.tokens.doc.Doc class,
             # this doc is iterable.         
             doc = nlp(line)
             for token in doc:
-                # we will only search for the the `NOUN` POS and get the text out of it.
+                # we will only search for the `NOUN` POS and get the text out of it.
                 if token.pos_ == "NOUN":
-                    nouns.append(token.text)
-                    
+                    nouns.append(token.text)                    
             # We will construst the csv_line to be saved in output file with line number
             all_nouns_of_the_line_in_str = ",".join(nouns)
             csv_line = f"{line_number}. {all_nouns_of_the_line_in_str}"
