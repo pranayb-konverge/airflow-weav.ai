@@ -2,6 +2,7 @@
 
 ## Installation of Airflow:
 ### Inside your laptop Ubuntu terminal perform below tasks.
+- Place the input file inside the ./dags/files folder. The output file will be delivered in the same folder.
 - To up the containers: `docker-compose -f docker-compose_local_executor.yaml up --build -d`
     - To down the containers: `docker-compose -f docker-compose_local_executor.yaml down -v`
 - Docker compose to use: https://github.com/pranayb-konverge/airflow-tutorial/blob/main/airflow-local/docker-compose_local_executor.yaml
