@@ -1,3 +1,20 @@
+# Objective
+- There is a use of Airflow Orchestration in this project.
+- Input: Any given test files with multiple lines. 
+- Output: A new file, in csv format, which contains all NOUNs of the line as well as the line number. If the line does not have any NOUNs keep the line number with empty string.
+- Something like:
+    - 1. thither
+    - 2. 
+    - 3.
+    - 4. man,wickedness
+    - 5. 
+    - 6. days
+    - 7. day,judgment,seat
+
+- Requirements: 
+    - To identify a Noun, please use the latest version of Spacy. https://spacy.io/usage/linguistic-features#pos-tagging The result should contain those nouns with the POS-Tag NOUN.
+    - The whole thing should be implemented as a DAG in Airflow. The solution needs to fully explain how to get it running with a text file we define.
+
 # Installation of Airflow on local Ubuntu machine. 
 
 ## Installation of Airflow:
